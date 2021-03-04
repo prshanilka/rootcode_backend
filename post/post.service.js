@@ -13,7 +13,7 @@ module.exports = {
     );
   },
   getPosts: (callBack) => {
-    pool.query(`SELECT post.postID,post.post_title,post.post_des,post.post_t_color,COUNT(cID) AS comments FROM post,comment where post.postID=comment.postID`, [], (error, results, fields) => {
+    pool.query(`SELECT post.postID,post.post_title,post.post_des,post.post_t_color,COUNT(cID) AS comments FROM post,comment where post.postID=comment.postID UNION SELECT post.postID,post.post_title,post.post_des,post.post_t_color,0 AS comment FROM post where postID NOT IN(SELECT postID from comment)`, [], (error, results, fields) => {
       if (error) {
         return callBack(error);
       }
