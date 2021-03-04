@@ -3,7 +3,7 @@ module.exports = {
   createPost: (data,callBack) => {
     pool.query(
       `INSERT INTO post(post_title,post_des,post_t_color) VALUES (?,?,?)`,
-      [data.title, data.color,data.description],
+      [data.title,data.description, data.color],
       (error, results, fields) => {
         if (error) {
           return callBack(error);
